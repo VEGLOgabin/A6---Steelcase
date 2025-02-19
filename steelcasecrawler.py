@@ -64,8 +64,8 @@ class SteelCaseScraper:
         print(f"[cyan]Scraping data from:[/cyan] {url}")
         new_page = await self.context.new_page()
         await new_page.goto(url)
-        await self.page.wait_for_timeout(5000)
-        
+        await self.page.wait_for_timeout(7000)
+
         cookie_button = self.page.locator('button#onetrust-reject-all-handler')
         if await cookie_button.is_visible():
             await cookie_button.click()
@@ -86,7 +86,9 @@ class SteelCaseScraper:
             "specifications": {},
             "dimensions" : "",
             "green_certification" : "",
-            "spec_pdf" : ""
+            "spec_pdf" : "",
+            "certifications" :"",
+            "warranty" : "",
         }
 
         specifications = {}
@@ -98,44 +100,55 @@ class SteelCaseScraper:
 
             # Extract specifications from the opened "Specs" section
             specifications = {}
-            specs_list = soup.find("ul", class_="spec-summary-data-list")
-            if specs_list:
-                for item in specs_list.find_all("li", class_="spec-summary--item"):
+            specs_list = soup.find_all("ul", class_="spec-summary-data-list")  # Find all spec sections
+
+            for spec_section in specs_list:
+                for item in spec_section.find_all("li", class_="spec-summary--item"):
                     label = item.find("span", class_="spec-summary-data-item__label")
                     value = item.find("span", class_="spec-summary-data-item__content")
                     if label and value:
-                        specifications[label.get_text(strip=True)] = value.get_text(strip=True)
+                        label_text = label.get_text(strip=True)
+                        value_text = value.get_text(strip=True)
+                        specifications[label_text] = value_text
 
-                data["specifications"] = specifications
-                data["dimensions"] = {
-                    "height": specifications.get("Height", ""),
-                    "width": specifications.get("Width", ""),
-                    "depth": specifications.get("Depth", ""),
-                    "weight": specifications.get("Product Weight", "")
-                }
-
-                print(specifications)
-
+            # Extract specific information
+            data["specifications"] = specifications
+            data["dimensions"] = {
+                "height": specifications.get("Height", ""),
+                "width": specifications.get("Width", ""),
+                "depth": specifications.get("Depth", ""),
+                "weight": specifications.get("Product Weight", "")
+            }
+            data["certifications"] = specifications.get("Certifications", "")
+            data["warranty"] = specifications.get("Warranty", "")
+            print(data["specifications"])
+            print(data["certifications"])
         except Exception as e:
-            print(f"Error extracting specifications: {e}")            
+            print(f"Error extracting specifications: {e}")
+
         # Extract Product Image (jpg)
         try:
             
-            image_locators =soup.find_all("img")
-            
+            image_locators =soup.find("img", class_ = "slide__image t_masthead_ow")
+            if image_locators:
+                data["image"] = image_locators.get("src")
+
+            print(data["image"])
         except Exception as e:
             print(f"Error extracting image: {e}")
 
         # Extract Product Description
         try:
-        
-            pass
+            description_div = soup.find('div', class_ = "panel-statement__statement content-well")
+            if description_div:
+                data["description"] = description_div.get_text()
+            print(data["description"])
         except Exception as e:
             print(f"Error extracting description: {e}")
 
         # Extract Price
         try:
-            price_div = soup.find("div", class_="PriceInfoText_priceInfo__QEjy8")
+            pass
         except Exception as e:
             print(f"Error extracting price: {e}")
 
