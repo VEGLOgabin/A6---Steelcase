@@ -65,6 +65,7 @@ class SteelCaseScraper:
         new_page = await self.context.new_page()
         await new_page.goto(url)
         await self.page.wait_for_timeout(5000)
+        
         cookie_button = self.page.locator('button#onetrust-reject-all-handler')
         if await cookie_button.is_visible():
             await cookie_button.click()
@@ -128,21 +129,9 @@ class SteelCaseScraper:
         # Extract Product Description
         try:
         
-            description_locator = soup.find("ul", class_ = "product-details__info-description")
-            if description_locator:
-                data["description"] = description_locator.get_text().replace("\n", "").replace("\t", "")
-
+            pass
         except Exception as e:
             print(f"Error extracting description: {e}")
-
-        # Extract Measurements and Dimensions
-        try:
-
-            dimensions = self.extract_dimensions(data["specifications"])
-            data["dimensions"] = dimensions
-
-        except Exception as e:
-            print(f"Error extracting dimensions: {e}")
 
         # Extract Price
         try:
@@ -159,7 +148,7 @@ class SteelCaseScraper:
 
         #Extract green certification
         try:
-            data["green_certification"]  = self.check_certification(specifications)
+            data["green_certification"]  = "N"
                 
         except Exception as e:
             print(f"Error extracting certification: {e}")
