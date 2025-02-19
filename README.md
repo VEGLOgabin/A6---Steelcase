@@ -85,15 +85,4 @@ https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_
 					</a>
 
 
-<div class="panel-statement panel-statement--background-grey panel-statement--long" style="height: 376px;">
-	
-	<div class="panel-statement__statement content-well" data-depth="0" data-name="statement" data-livetext="" data-autop="true"><p>Aspekt seating and tables offer a clean, minimal aesthetic for patients and guests in a variety of healthcare settings. Aspekt high-back chairs provide comfort and support for patients and visitors. A coordinating footstool pulls out to support legs and stores beneath the chair when not in use. Arm caps on all models have an intentional overhang that is easy to grip when leaving the chair.</p>
-</div><button class="panel-statement--toggle" data-js="panel-statement-toggle"><span class="panel-statement__label">Show Less</span> <i class="icon icon-minus"></i></button>
-</div>
 
-
-<div class="panel-statement panel-statement--background-grey panel-statement--long" style="height: 270px;">
-	
-	<div class="panel-statement__statement content-well" data-depth="0" data-name="statement" data-livetext="" data-autop="true"><p>Aspekt seating and tables offer a clean, minimal aesthetic for patients and guests in a variety of healthcare settings. Aspekt high-back chairs provide comfort and support for patients and visitors. A coordinating footstool pulls out to support legs and stores beneath the chair when not in use. Arm caps on all models have an intentional overhang that is easy to grip when leaving the chair.</p>
-</div><button class="panel-statement--toggle" data-js="panel-statement-toggle"><span class="panel-statement__label">Show More</span> <i class="icon icon-plus"></i></button>
-</div>
