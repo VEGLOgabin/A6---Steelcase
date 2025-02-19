@@ -107,11 +107,13 @@ class SteelCaseScraper:
 
                 data["specifications"] = specifications
                 data["dimensions"] = {
-                    "Height": specifications.get("Height", ""),
-                    "Width": specifications.get("Width", ""),
-                    "Depth": specifications.get("Depth", ""),
-                    "Product Weight": specifications.get("Product Weight", "")
+                    "height": specifications.get("Height", ""),
+                    "width": specifications.get("Width", ""),
+                    "depth": specifications.get("Depth", ""),
+                    "weight": specifications.get("Product Weight", "")
                 }
+
+                print(specifications)
 
         except Exception as e:
             print(f"Error extracting specifications: {e}")            
