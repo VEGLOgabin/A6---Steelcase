@@ -47,9 +47,11 @@ class SteelCaseScraper:
 
             html_content = await self.page.content()
             soup = BeautifulSoup(html_content, 'html.parser')
-          
-            search_result = soup.find("a", class_ = "card-link")
 
+            search_result = soup.find("a", class_ = "card-link")
+            if search_term == "FLOW":
+                search_result = soup.find_all("a", class_ = "card-link")[1]
+                
             if search_result:
                 url = search_result.get("href")
                 return url
