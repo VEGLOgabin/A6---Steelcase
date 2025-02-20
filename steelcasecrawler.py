@@ -51,7 +51,7 @@ class SteelCaseScraper:
             search_result = soup.find("a", class_ = "card-link")
             if search_term == "FLOW":
                 search_result = soup.find_all("a", class_ = "card-link")[1]
-                
+
             if search_result:
                 url = search_result.get("href")
                 return url
@@ -65,13 +65,14 @@ class SteelCaseScraper:
         """Extract product details from the given URL."""
         print(f"[cyan]Scraping data from:[/cyan] {url}")
         new_page = await self.context.new_page()
-        await new_page.goto(url)
-        await self.page.wait_for_timeout(7000)
+        await new_page.goto(url, wait_until="domcontentloaded", timeout=0)  # timeout = 0 is the best if the page takes too much time to load
+        # await new_page.wait_for_selector("button#onetrust-reject-all-handler", timeout=10000)
+        await new_page.wait_for_timeout(1000)
 
-        cookie_button = self.page.locator('button#onetrust-reject-all-handler')
+        cookie_button = new_page.locator('button#onetrust-reject-all-handler')
         if await cookie_button.is_visible():
             await cookie_button.click()
-            await self.page.wait_for_timeout(1000)
+            await new_page.wait_for_timeout(1000)
 
         try:
             specs_button = new_page.locator('//button[@data-drawer-name="specifications"]')
@@ -116,15 +117,15 @@ class SteelCaseScraper:
             # Extract specific information
             data["specifications"] = specifications
             data["dimensions"] = {
-                "height": specifications.get("Height", ""),
-                "width": specifications.get("Width", ""),
-                "depth": specifications.get("Depth", ""),
-                "weight": specifications.get("Product Weight", "")
+                "height": specifications.get("Height", "").split('"')[0].split("'")[0],
+                "width": specifications.get("Width", "").split('"')[0].split("'")[0],
+                "depth": specifications.get("Depth", "").split('"')[0].split("'")[0],
+                "weight": specifications.get("Product Weight", "").split('lbs')[0]
             }
             data["certifications"] = specifications.get("Certifications", "")
             data["warranty"] = specifications.get("Warranty", "")
-            print(data["specifications"])
-            print(data["certifications"])
+            print(data["dimensions"])
+            
         except Exception as e:
             print(f"Error extracting specifications: {e}")
 
@@ -144,20 +145,16 @@ class SteelCaseScraper:
             description_div = soup.find('div', class_ = "panel-statement__statement content-well")
             if description_div:
                 data["description"] = description_div.get_text()
-            print(data["description"])
+            # print(data["description"])
         except Exception as e:
             print(f"Error extracting description: {e}")
 
-        # Extract Price
-        try:
-            pass
-        except Exception as e:
-            print(f"Error extracting price: {e}")
-
         #Extract green certification
         try:
-        
-            data["green_certification"]  = "N"
+            if data["certifications"] != "":
+                data["green_certification"]  = "Y"
+            else:
+                data["green_certification"] = "N"
                 
         except Exception as e:
             print(f"Error extracting certification: {e}")
@@ -186,8 +183,24 @@ class SteelCaseScraper:
 
             data["spec_pdf"] = pdf_links  # Store PDFs
 
-            print(pdf_links)
+            if pdf_links:
+                for item in pdf_links:
+                    if "Brochure" in item["title"]:
+                        data["brochure_pdf"] = item["url"]
+                        # print(data["brochure_pdf"])
+                    
+                    if "Spec Guide" in item["title"]:
+                        data["spec_sheet_pdf"] = item["url"]
+                        # print(data["spec_sheet_pdf"])
 
+                    if "Lookbook" in item["title"]:
+                        data["manual_pdf"] = item["url"]
+                        # print(data["manual_pdf"])
+
+            else:
+                print("No document available")
+
+                        
         except Exception as e:
             print(f"Error extracting PDFs: {e}")
 
@@ -211,37 +224,38 @@ class SteelCaseScraper:
             else:
                 self.found += 1
 
-            print(url)
+            # print(url)
 
             if url:
                 product_data = await self.scrape_product_details(url)
-            #     if product_data:
-            #         print(f"[green]{model_name} | {mfr_number} [/green] - Data extracted successfully.")
-            #         self.df.at[index, "Product URL"] = product_data.get("url", "")
-            #         self.df.at[index, "Product Image (jpg)"] = product_data.get("image", "")
-            #         self.df.at[index, "Product Image"] = product_data.get("image", "")
-            #         self.df.at[index, "product description"] = product_data.get("description", "")
-            #         self.df.at[index, "Specification Sheet (pdf)"] = product_data.get("spec_pdf", "")
-            #         self.df.at[index, "unit cost"] = product_data.get("price", "")
-            #         self.df.at[index, "depth"] = product_data["dimensions"].get("depth", "")
-            #         self.df.at[index, "height"] = product_data["dimensions"].get("height", "")
-            #         self.df.at[index, "width"] = product_data["dimensions"].get("width", "")
-            #         self.df.at[index, "weight"] = product_data["dimensions"].get("weight", "")
-            #         self.df.at[index, "ship_weight"] = product_data["dimensions"].get("shipping_weight", "")
-            #         self.df.at[index, "green certification? (Y/N)"] = product_data.get("green_certification", "")
-            #         self.df.at[index, "emergency_power Required (Y/N)"] = "N"
-            #         self.df.at[index, "dedicated_circuit Required (Y/N)"] = "N"
-            #         self.df.at[index, "water_cold Required (Y/N)"] = "N"
-            #         self.df.at[index, "water_hot  Required (Y/N)"] = "N"
-            #         self.df.at[index, "drain Required (Y/N)"] = "N"
-            #         self.df.at[index, "water_treated (Y/N)"] = "N"
-            #         self.df.at[index, "steam  Required(Y/N)"] = "N"
-            #         self.df.at[index, "vent  Required (Y/N)"] = "N"
-            #         self.df.at[index, "vacuum Required (Y/N)"] = "N"
-            #         self.df.at[index, "ada compliant (Y/N)"] = "N"
-            #         self.df.at[index, "antimicrobial coating (Y/N)"] = "N"
-            # else:
-            #     print(f"[red]{model_name} | {mfr_number} [/red] - Not found")  if not url:
+                if product_data:
+                    print(f"[green]{model_name} | {mfr_number} [/green] - Data extracted successfully.")
+                    self.df.at[index, "Product URL"] = product_data.get("url", "")
+                    self.df.at[index, "Product Image (jpg)"] = product_data.get("image", "")
+                    self.df.at[index, "Product Image"] = product_data.get("image", "")
+                    self.df.at[index, "product description"] = product_data.get("description", "")
+                    self.df.at[index, "Specification Sheet (pdf)"] = product_data.get("spec_sheet_pdf", "")
+                    self.df.at[index, "Brochure (pdf)"] = product_data.get("brochure_pdf", "")
+                    self.df.at[index, "Manual/IFU (pdf)"] = product_data.get("manual_pdf", "")
+                    self.df.at[index, "depth"] = product_data["dimensions"].get("depth", "")
+                    self.df.at[index, "height"] = product_data["dimensions"].get("height", "")
+                    self.df.at[index, "width"] = product_data["dimensions"].get("width", "")
+                    self.df.at[index, "weight"] = product_data["dimensions"].get("weight", "")
+                    # self.df.at[index, "ship_weight"] = product_data["dimensions"].get("shipping_weight", "")
+                    self.df.at[index, "green certification? (Y/N)"] = product_data.get("green_certification", "")
+                    self.df.at[index, "emergency_power Required (Y/N)"] = "N"
+                    self.df.at[index, "dedicated_circuit Required (Y/N)"] = "N"
+                    self.df.at[index, "water_cold Required (Y/N)"] = "N"
+                    self.df.at[index, "water_hot  Required (Y/N)"] = "N"
+                    self.df.at[index, "drain Required (Y/N)"] = "N"
+                    self.df.at[index, "water_treated (Y/N)"] = "N"
+                    self.df.at[index, "steam  Required(Y/N)"] = "N"
+                    self.df.at[index, "vent  Required (Y/N)"] = "N"
+                    self.df.at[index, "vacuum Required (Y/N)"] = "N"
+                    self.df.at[index, "ada compliant (Y/N)"] = "N"
+                    self.df.at[index, "antimicrobial coating (Y/N)"] = "N"
+            else:
+                print(f"[red]{model_name} | {mfr_number} [/red] - Not found")  
               
         print(f"[red]Missing : {self.missing} [/red]")
         print(f"[green]Found : {self.found} [/green]")
