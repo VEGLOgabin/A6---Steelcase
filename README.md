@@ -1,48 +1,70 @@
-# A6---Steelcase
+# SteelCaseScraper
 
+## Overview
+SteelCaseScraper is a Python-based web scraper that extracts product details from the Steelcase website. It leverages Playwright for browser automation and BeautifulSoup for HTML parsing, allowing users to retrieve specifications, images, descriptions, and documentation for various products.
 
-mfr website
-mfr name
-model name
-mfr number
-unit cost
-product description
-amps
-volts
-watts
-phase
-hertz
-plug_type
-emergency_power Required (Y/N)
-dedicated_circuit Required (Y/N)
-tech_conect Required
-btu 
-dissipation_type
-water_cold Required (Y/N)
-water_hot  Required (Y/N)
-drain Required (Y/N)
-water_treated (Y/N)
-steam  Required(Y/N)
-vent  Required (Y/N)
-vacuum Required (Y/N)
-ship_weight
-weight
-depth
-height
-width
-ada compliant (Y/N)
-green certification? (Y/N)
-antimicrobial coating (Y/N)
-Specification Sheet (pdf)
-Brochure (pdf)
-Manual/IFU (pdf)
-Product URL
-CAD (dwg)
-REVIT (rfa)
-Seismic document
-Product Image (jpg)
-Product Image
+## Features
+- Automates product searches based on manufacturer number or model name.
+- Extracts product specifications, images, dimensions, certifications, and warranty details.
+- Downloads product-related PDFs (brochures, spec sheets, and manuals).
+- Stores extracted data in an Excel file.
+- Supports headless browsing for efficiency.
 
-<img class="slide__image t_masthead_env" alt="Chairs in front of a whiteboard." src="https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_656,w_1166/v1727905503/09-0101550.jpg" sizes="(min-width: 1260px) 1260px, 100vw" srcset="https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_656,w_1166/v1727905503/09-0101550.jpg 1166w 656h, 
-https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_450,w_800/v1727905503/09-0101550.jpg 800w 450h, 
-https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_270,w_480/v1727905503/09-0101550.jpg 480w 270h">
+## Requirements
+Ensure you have the following dependencies installed:
+
+```bash
+pip install asyncio pandas playwright rich beautifulsoup4 openpyxl
+```
+
+Additionally, you must install Playwright browsers:
+
+```bash
+playwright install
+```
+
+## Usage
+### Running the Scraper
+To use the scraper, create an instance of `SteelCaseScraper` with the required parameters:
+
+```python
+from scraper import SteelCaseScraper
+import asyncio
+
+scraper = SteelCaseScraper(
+    excel_path="input.xlsx", 
+    output_filename="output.xlsx", 
+    baseurl="https://www.steelcase.com/", 
+    found=0, 
+    missing=0, 
+    headless=True
+)
+
+asyncio.run(scraper.run())
+```
+
+### Parameters
+- `excel_path` : Path to the input Excel file containing product details.
+- `output_filename` : Path to save the extracted data.
+- `baseurl` : Base URL of the Steelcase website.
+- `found` : Counter for successfully found products.
+- `missing` : Counter for missing products.
+- `headless` : Boolean flag to run the browser in headless mode.
+
+### Output
+The extracted data is stored in an Excel file, including:
+- Product URL
+- Product Image
+- Description
+- Specifications
+- Dimensions (height, width, depth, weight)
+- Green certification status
+- PDFs (brochure, spec sheet, manual)
+
+## Notes
+- Ensure your Excel file contains the necessary columns (`mfr number`, `model name`).
+- The script handles cookies and pop-ups automatically.
+- Adjust timeouts if necessary to accommodate slow-loading pages.
+
+## License
+This project is licensed under the MIT License.
