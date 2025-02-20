@@ -65,8 +65,8 @@ class SteelCaseScraper:
         """Extract product details from the given URL."""
         print(f"[cyan]Scraping data from:[/cyan] {url}")
         new_page = await self.context.new_page()
-        await new_page.goto(url, wait_until="domcontentloaded", timeout=0)  # timeout = 0 is the best if the page takes too much time to load
-        # await new_page.wait_for_selector("button#onetrust-reject-all-handler", timeout=10000)
+        # await new_page.goto(url, wait_until="domcontentloaded", timeout=0)  # timeout = 0 is the best if the page takes too much time to load
+        await new_page.goto(url, timeout=0) 
         await new_page.wait_for_timeout(1000)
 
         cookie_button = new_page.locator('button#onetrust-reject-all-handler')
@@ -135,7 +135,10 @@ class SteelCaseScraper:
             image_locators =soup.find("img", class_ = "slide__image t_masthead_ow")
             if image_locators:
                 data["image"] = image_locators.get("src")
-
+            else:
+                image_locators = soup.find('img', class_ = "slide__image t_masthead_env")
+                if image_locators:
+                    data["image"] = image_locators.get("src")
             print(data["image"])
         except Exception as e:
             print(f"Error extracting image: {e}")

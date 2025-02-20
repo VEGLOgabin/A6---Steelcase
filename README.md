@@ -43,29 +43,6 @@ Seismic document
 Product Image (jpg)
 Product Image
 
-
-Dimensions missed
-
-https://www.steelcase.com/products/power-cable-management/steelcase-relay-modular-power-system
-
- https://www.steelcase.com/products/power-cable-management/steelcase-relay-modular-power-system
-
-  https://www.steelcase.com/products/workstation-storage/universal-storage
- 
-
-
-
-Document missed
-
-https://www.steelcase.com/products/workstation-storage/ts-series-slim-mobile-pedestal
-
-https://www.steelcase.com/products/overbed-healthcare-tables/opus-mobile-overbed-table
-
-
-
-FEATURES + SPECIFICATIONS
-Connects up to 8 powerstrips and jumper cords with one power infeed.
-Push-button disconnect feature for ease of installation and reconfiguration.
-LED indicator illuminates to confirm proper connectivity.
-Single circuit, one direction, 15A max, overcurrent protection and 3 plug options.
-40 feet max length, NRTL listed in U.S. and Canada.
+<img class="slide__image t_masthead_env" alt="Chairs in front of a whiteboard." src="https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_656,w_1166/v1727905503/09-0101550.jpg" sizes="(min-width: 1260px) 1260px, 100vw" srcset="https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_656,w_1166/v1727905503/09-0101550.jpg 1166w 656h, 
+https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_450,w_800/v1727905503/09-0101550.jpg 800w 450h, 
+https://images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_270,w_480/v1727905503/09-0101550.jpg 480w 270h">
