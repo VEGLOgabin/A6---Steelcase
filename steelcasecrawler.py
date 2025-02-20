@@ -165,7 +165,7 @@ class SteelCaseScraper:
             docs_button = new_page.locator('//button[@data-drawer-name="documents"]')
             await docs_button.wait_for(state="visible", timeout=5000)
             await docs_button.click()
-            await new_page.wait_for_timeout(5000)  # Wait for content to load
+            await new_page.wait_for_timeout(10000)  # Wait for content to load
         except Exception as e:
             print(f"Error clicking documents button: {e}")
 
@@ -175,8 +175,8 @@ class SteelCaseScraper:
             soup = BeautifulSoup(html_content, 'html.parser')
 
             # Find all PDF links
-            pdf_links = []
-            for pdf_link in soup.find_all("a", class_="si-view-pdf focus-within"):
+            pdf_links = []                            
+            for pdf_link in soup.find_all("a", class_="si-view-pdf"):
                 href = pdf_link.get("href")
                 title = pdf_link.get("title")
                 if href and title:

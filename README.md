@@ -45,44 +45,39 @@ Product Image
 
 
 
-<img class="slide__image t_masthead_ow" alt="SOTO Mobile Caddy" src="https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_656,w_1166/v1602800435/15-0012972.jpg" sizes="(min-width: 1260px) 1260px, 100vw" srcset="https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_1350,w_2400/v1602800435/15-0012972.jpg 2400w 1350h, 
-https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_900,w_1600/v1602800435/15-0012972.jpg 1600w 900h, 
-https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_656,w_1166/v1602800435/15-0012972.jpg 1166w 656h, 
-https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_450,w_800/v1602800435/15-0012972.jpg 800w 450h, 
-https://steelcase-res.cloudinary.com/image/upload/t_masthead_ow/q_auto,f_auto,h_270,w_480/v1602800435/15-0012972.jpg 480w 270h">
+<a class="si-view-pdf" rel="noopener" target="_blank" href="https://www.steelcase.com/resources/documents/senza-brochure" title="Senza Brochure" data-asset-type="pdf">
+					<img src="//images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_500,w_400/v1571355481/Senza_Brochure-1.png" data-original="//images.steelcase.com/image/upload/c_fill,q_auto,f_auto,h_500,w_400/v1571355481/Senza_Brochure-1.png" data-gallery="image-lander" class="lazyload rc-view-image" alt="Senza Brochure" style="">
+				</a>
 
-
-
-<button type="button" class="drawer-button drawer-button--main focus-within" data-drawer-type="drawer_main" data-drawer-name="specifications">
-						<i class="icon icon-specifications main-drawer-icon"></i>
-						Specs						<i class="icon icon-triangle-down"></i>
-					</button>
-
-
-<a class="si-view-pdf focus-within" rel="noopener" target="_blank" href="https://www.steelcase.com/resources/documents/steelcase-seating-lookbook" title="Steelcase Seating Lookbook" data-asset-type="pdf">
-
-
-<a class="si-view-pdf focus-within" rel="noopener" target="_blank" href="https://www.steelcase.com/resources/documents/bassline-bench-seating-cut-sheet" title="Bassline Bench Seating Cut Sheet" data-asset-type="pdf">
-
-
-
-
-<a class="si-view-pdf focus-within" rel="noopener" target="_blank" href="https://www.steelcase.com/resources/documents/conference-and-collaborative-tables-spec-guide" title="Conference and Collaborative Tables Spec Guide" data-asset-type="pdf">
+<div class="card-info" data-match-height="si" style="height: 130.25px;">
+				<h3 class="card-title" style="height: 61.25px;">
+					
+						<span class="document-type">
+							
+								_ Commercial Spec Guides
+							
+						</span>
 					
 					
-						Conference and Collaborative Tables Spec Guide
+						<a class="si-view-pdf" rel="noopener" target="_blank" href="https://www.steelcase.com/resources/documents/steelcase-worktools-spec-guide" title="Steelcase Worktools Spec Guide" data-asset-type="pdf">
+					
+					
+						Steelcase Worktools Spec Guide
 					
 					</a>
-					
-					
-						Bassline Bench Seating Cut Sheet
-					
-					</a>
-					
-					
-						Steelcase Seating Lookbook
-					
-					</a>
-
-
-
+				</h3>
+				
+					<div class="tool-strip">
+						<div class="si-controls btn-group">
+							
+							<button type="button" class="bookmark-item tooltip-default save-item-cookie trigger-signup document-control tooltipstered" data-item-id="119883" data-type="document" data-remove-text="Remove From Saved Items" data-save-text="Save Document">
+								<b data-feature="6"></b>
+								<i class="icon icon-bookmark-sign" aria-hidden="true"></i>
+							</button>
+							<button class="si-control sic-select tooltip-default tooltipstered" type="button" data-item-id="119883" data-type="document">
+								<i class="icon icon-check-sign-outline" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+				
+			</div>
